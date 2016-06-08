@@ -4,7 +4,7 @@ A Lambda function for creating MailChimp subscriptions.
 
 ##  Authentication
 
-Set your MailChimp data center, API key, list ID, and username in the `.env` file. Copy the
+Set your MailChimp data center, API key, status, and username in the `.env` file. Copy the
 sample to get started:
 
 ```
@@ -20,6 +20,8 @@ There's a handy script included to create your zip archive:
 ```
 $ npm run zip
 ```
+
+Upload zip to your lambda function
 
 Integrate with the
 [AWS API Gateway](http://docs.aws.amazon.com/lambda/latest/dg/gs-amazon-gateway-integration.html)
