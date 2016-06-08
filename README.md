@@ -2,7 +2,7 @@
 
 A Lambda function for creating MailChimp subscriptions.
 
-##  Authentication
+##  Configuration
 
 Set your MailChimp data center, API key, status, and username in the `.env` file. Copy the
 sample to get started:
@@ -10,6 +10,7 @@ sample to get started:
 ```
 $ cp .env.sample .env
 ```
+Status only supports this values: subscribed, unsubscribed, cleaned, pending
 
 Additional details about authenticating with the MailChimp API is available [here](http://developer.mailchimp.com/documentation/mailchimp/guides/get-started-with-mailchimp-api-3/).
 
