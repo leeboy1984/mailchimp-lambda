@@ -1,6 +1,6 @@
 # MailChimp Lambda
 
-A Lambda function for creating MailChimp subscriptions.
+A Lambda function for creating MailChimp subscriptions. Subscription list is configurable via API
 
 ##  Configuration
 
@@ -30,6 +30,6 @@ to access the function via HTTP POST:
 
 ```
 $ curl -X POST -H "Content-Type: application/json" \
--d '{ "email": "name@email.com" }' \
+-d '{ "email": "name@email.com", "list": "LIST_ID" }' \
 YOUR_API_GATEWAY_URL
 ```
