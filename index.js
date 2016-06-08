@@ -7,21 +7,20 @@ var Promise = require('es6-promise').Promise,
 var API_URL  = '.api.mailchimp.com/3.0/lists/',
     DATACENTER  = process.env.DATACENTER,
     API_KEY  = process.env.API_KEY,
-    LIST_ID  = process.env.LIST_ID,
     USERNAME = process.env.USERNAME,
-    STATUS   = 'pending';
+    STATUS   = process.env.STATUS;
 
-function urlForList() {
-  return 'https://' + DATACENTER + API_URL + LIST_ID + '/members/';
+function urlForList(list) {
+  return 'https://' + DATACENTER + API_URL + list + '/members/';
 }
 
-function urlForUser(emailAddress) {
-  return urlForList() + md5(emailAddress);
+function urlForUser(emailAddress,list) {
+  return urlForList(list) + md5(emailAddress);
 }
 
-function updateSubscription(emailAddress) {
+function updateSubscription(emailAddress,list) {
   return new Promise(function(resolve, reject) {
-    request.patch(urlForUser(emailAddress))
+    request.patch(urlForUser(emailAddress,list))
       .auth(USERNAME, API_KEY)
       .send({ status: STATUS })
       .end(function(err, res) {
@@ -35,9 +34,9 @@ function updateSubscription(emailAddress) {
   });
 }
 
-function createSubscription(emailAddress) {
+function createSubscription(emailAddress,list) {
   return new Promise(function(resolve, reject) {
-    request.post(urlForList())
+    request.post(urlForList(list))
       .auth(USERNAME, API_KEY)
       .send({ email_address: emailAddress, status: STATUS })
       .end(function(err, res) {
@@ -53,8 +52,9 @@ function createSubscription(emailAddress) {
 
 exports.handler = function(event, context) {
   var emailAddress = event.email;
+  var list = event.list;
   function create() {
-    createSubscription(emailAddress)
+    createSubscription(emailAddress, list)
       .then(function(responseBody) {
         context.succeed(responseBody);
       })
@@ -63,7 +63,7 @@ exports.handler = function(event, context) {
       });
   }
 
-  updateSubscription(emailAddress)
+  updateSubscription(emailAddress,list)
     .then(function(responseBody) {
       context.succeed(responseBody);
     })
