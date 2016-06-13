@@ -16,10 +16,16 @@ Additional details about authenticating with the MailChimp API is available [her
 
 ## Deployment
 
+First you need to get dependencies
+
+```
+$ npm update
+```
+
 There's a handy script included to create your zip archive:
 
 ```
-$ npm run zip
+$ npm run-script zip
 ```
 
 Upload zip to your lambda function
